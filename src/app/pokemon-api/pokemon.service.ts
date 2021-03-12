@@ -50,7 +50,7 @@ export class PokemonService {
 
     // pokemonList
     // JohtopokemonList // HoennpokemonList
-    return this.http.get(environment.urls.HoennpokemonList, this.getHeaders())
+    return this.http.get(environment.urls.pokemonList, this.getHeaders())
       .toPromise()
       .then((res: HttpResponse<Pokemon>) => {
 
@@ -79,6 +79,8 @@ export class PokemonService {
               
               // pokemon.isChecked = this.favoritePokemon.has(pokemon.id) ? true : false;
               pokemonList.push(pokemon);
+
+              // attemt at offset but not sure that's a good way
               if (+(idnum) >= +(151)) {
               }
 

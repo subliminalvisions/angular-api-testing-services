@@ -43,7 +43,7 @@ export class PokemonListComponent implements OnInit {
           return {
             ...obj,
             id: parseInt(obj.url.split('/')[6]),
-            imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${parseInt(obj.url.split('/')[6])}.png`
+            imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${parseInt(obj.url.split('/')[6])}.png`
           }
         });
 
