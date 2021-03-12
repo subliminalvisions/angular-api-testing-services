@@ -1,0 +1,44 @@
+<app-layout [isLoading]="isLoading">
+    <span *ngIf="error">
+      Loading failed
+    </span>
+  
+    <div style="text-align:center">
+      <h1>
+        My Kanto Pokedex
+      </h1>
+      <div *ngIf="!isLoading && !error" class="row d-flex justify-content-center ">
+        <ul class="pagination ">
+          <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- <app-pokemon-loading [isLoading]='isLoading'></app-pokemon-loading> -->
+    <div *ngIf="!isLoading">
+      <div class="container content">
+        <div class="row">
+          <div class="col-md-2" *ngFor="let pokemon of pokemonGrid">
+            <div class="card-deck">
+              <div class="card text-center mt-2 mb-2" style="width: 18rem;">
+                <div class="card-header">
+                  {{ pokemon.name }}
+                  <!-- <label class="checkbox-container">Favorite
+                    <input type="checkbox" (change)="onChange($event, pokemon)" [checked]="favoritePokemon.has(pokemon.id)" />
+                    <span class="checkmark {{pokemon.isChecked ? 'fa fa-star' : 'fa fa-star-o' }}"></span>
+                  </label> -->
+                </div>
+                <a [routerLink]="['/pokemon', pokemon.id]">
+                  <div class="card-body">
+                    <!--  -->
+                  <img class="card-img-top" src="{{ pokemon.imageUrl }}" >
+                </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+  </app-layout>
