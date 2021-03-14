@@ -28,18 +28,34 @@ error: {{ error }}
           
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
           <li class="page-item">
-            <a href="/icons/chevron-left?style=solid" class="search-results-gallery-icon flex flex-column items-center justify-center color-inherit w-100 pa2 br2 br--top no-underline hover-bg-blue4 hover-white"><i class="fas fa-chevron-left" style="font-size: 48px;"></i></a>
+            <a 
+            (click)="PrevPage()" 
+            class="pointer paginator hover-gray">
+              <!-- <i class="fas fa-chevron-left" style="font-size: 48px;"> bck </i> -->
+
+
+              <!-- <span class="icon login"></span>  -->
+              <fa-icon [icon]="faChevronLeft"></fa-icon>
+              <!-- <i class='fas fa-chevron-left fa-3x'>fa-3x</i><br/> -->
+
+            </a>
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
             <li class="page-item">              
-            <a href="/icons/chevron-left?style=solid"  class="search-results-gallery-icon flex flex-column items-center justify-center color-inherit w-100 pa2 br2 br--top no-underline hover-bg-blue4 hover-white"><i class="fas fa-chevron-left" style="font-size: 48px;"></i></a>
+            
+              <a 
+              (click)="NextPage()" 
+              class="pointer paginator hover-gray">
+              <fa-icon [icon]="faChevronRight"></fa-icon>
+
+            </a>
 
             <!-- (page)="pageChanged($event)" -->
             <!-- (click)="updatePage(page)" (page)="pageChanged($event)" -->
 
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
-          <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li>
+          <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li> -->
         </ul>
       </div>
 

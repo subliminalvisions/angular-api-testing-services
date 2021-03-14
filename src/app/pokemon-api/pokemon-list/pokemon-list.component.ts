@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
 import { take } from 'rxjs/operators';
+import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -13,10 +14,15 @@ export class PokemonListComponent implements OnInit {
   pokemonList: Pokemon[] = [];
   /* Pokemons to show, used since feature page is broken */
   pokemonGrid: Pokemon[] = [];
+  faChevronLeft = faChevronLeft;
+  faChevronRight = faChevronRight;
 
 
+  // not so sure bout this
   pageSize: number = 25;
   pageNumber: number;
+
+  CurrentOffset: number;
 
 
 
@@ -35,22 +41,37 @@ export class PokemonListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getMyPokeList();
+    this.CurrentOffset=0;
+    this.getMyPokeList(this.CurrentOffset);
     // this.getPokeImage(15);
   }
 
   // <mat-paginator [hidePageSize]="true" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [length]="totalRows" (page)="pageChanged($event)"></mat-paginator>
-  pageChanged(e) {
-    this.pageNumber = e.pageIndex;
-    this.pageSize = e.pageSize;
-    console.log(this.pageNumber + '---' + this.pageSize);
-    this.getMyPokeList();
+  
+  // pageChanged(e) {
+  //   this.pageNumber = e.pageIndex;
+  //   this.pageSize = e.pageSize;
+  //   console.log(this.pageNumber + '---' + this.pageSize);
+  //   this.getMyPokeList();
+  // }
+
+
+
+  NextPage() {
+    this.CurrentOffset +=18;
+    this.getMyPokeList(this.CurrentOffset);
+  }
+  PrevPage() {
+    this.CurrentOffset -=18;
+    this.getMyPokeList(this.CurrentOffset);
   }
 
-  getMyPokeList() {
+  getMyPokeList(PgOffset) {
     const dto = {
     };
     this.isLoading = true;
+
+
 
     // const orderBy = (this.sortOrder === 'asc') ? this.sortField : '-' + this.sortField;
 
@@ -58,11 +79,12 @@ export class PokemonListComponent implements OnInit {
       // orderBy: orderBy,
       // limit: this.pageSize,
       // offset: (this.pageNumber * this.pageSize),
-      limit: 33,
-      offset: 151,
+      // limit: 33,
+      limit: 18,
       // Johto is offset by 151 - Chikorita
       // Hoenn is offset by 251 - Treeko
       // Sinnoh is offset by 386 - Turtwig
+      offset: 151 + PgOffset,
       page: this.pageNumber 
     };
 
