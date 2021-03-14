@@ -10,6 +10,7 @@ import { UiModule } from './pokemon-api/ui.module';
 import { PokemonService } from './pokemon-api/pokemon.service';
 import { RouterModule, Routes } from '@angular/router';
 import { PokemonComponent } from './pokemon-api/pokemon/pokemon.component';
+import { LoaderComponent } from './layout/loader/loader.component';
 
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     PokemonListComponent,
+    LoaderComponent,
     // LayoutComponent
   ],
   imports: [

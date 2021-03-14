@@ -34,7 +34,17 @@ export class PokemonService {
 
   getMyPokeList(dto: any) {
     console.log('getMyPokeList', dto);
-    const url = environment.urls.pokemon;
+
+
+    // array .join('&');
+    console.log('dto.offset', dto.offset);
+    console.log('dto.limit', dto.limit);
+
+    // probably the wrong function right ?? 
+
+    // const searchUrl = environment.urls.pokemonList+'?offset='+dto.offset+'&limit='+dto.limit;;
+
+    const url = environment.urls.pokemon+'?offset='+dto.offset+'&limit='+dto.limit;
 
     return this.http.get<any>(url, this.getHeaders());
   }
@@ -50,7 +60,24 @@ export class PokemonService {
 
     // pokemonList
     // JohtopokemonList // HoennpokemonList
-    return this.http.get(environment.urls.pokemonList, this.getHeaders())
+
+    // hmmm , convert dto to string?
+    // next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20"
+    
+
+
+    // array .join('&');
+    console.log('dto.offset', dto.offset);
+    console.log('dto.limit', dto.limit);
+
+    // probably the wrong function right ?? 
+
+
+
+
+
+    const searchUrl = environment.urls.pokemonList+'?offset='+dto.offset+'&limit='+dto.limit;;
+    return this.http.get(searchUrl, this.getHeaders())
       .toPromise()
       .then((res: HttpResponse<Pokemon>) => {
 
