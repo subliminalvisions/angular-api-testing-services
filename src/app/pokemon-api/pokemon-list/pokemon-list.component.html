@@ -3,41 +3,36 @@
       Loading failed
     </span>
     <div style="text-align:center">
-      <h2 class="text-center">TEST Johto Pokedex </h2>
-<!--  <h4>
-        <i>
-          // next excercise: add le pagination <br>
-          using offset ... and ... an ngfor loop ?? 
-        </i>
-      </h4> -->
+      <h2 class="text-center">Pokemon Pokedex </h2>
       <!-- <div *ngIf="error" class="row d-flex justify-content-center ">
 error: {{ error }}
       </div> -->
       <!-- <div *ngIf="!isLoading && !error" class="row d-flex justify-content-center "> -->
         <div>
-          Generations:: {{ GenerationOptions | json }}<br>
+          <h5 class="text-center">Select Region </h5>
+          <!-- Generations:: {{ GenerationOptions | json }}<br> -->
         </div>
         <div>
-          <select class="form-select" 
-          [ngModel]="GenerationOptions" (ngModelChange)="changeGen($event)"
-          aria-label="Default select example">
-          <!-- (change)="changeGen($event.target.value)"   -->
-            <!-- <option selected>select region</option> -->
-            <option value="" >Choose generation</option>
-            <!-- formControlName="generation" -->
-            <!-- <option value="1">Gen 1</option>
-            <option value="2">Gen 2</option> -->
-            <!-- <option value="3">Gen 3</option> -->
-          <!-- </select>        
-          <select class="custom-select" (change)="changeCity($event)" formControlName="cityName"> -->
-            <!-- <select (change)="onChange($event.target.value)"> -->
+          <form #f="ngForm">
 
-            <option *ngFor="let region of GenerationOptions" [ngValue]="region.offset"
-            >
-              {{region.name}}- 
-              {{region.offset}}
+          <select class="form-select selectpicker" 
+          [ngModel]="GenSelected" 
+          (ngModelChange)="changeGen($event)"
+          name="Generation"
+          aria-label="Default select example">
+            <!-- <option selected value="" >Choose generation</option> -->
+            <option 
+            *ngFor="let region of GenerationOptions; let i = index" 
+            [selected]="i == 1" 
+            name="region.name"
+            [ngValue]="region">
+            <!-- [selected]="i == 0" -->
+
+            {{region.number}}: {{region.name}}
+              <!-- {{region.offset}} -->
             </option>
          </select>
+        </form>
 
           
         </div>

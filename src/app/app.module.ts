@@ -13,6 +13,8 @@ import { PokemonComponent } from './pokemon-api/pokemon/pokemon.component';
 import { LoaderComponent } from './layout/loader/loader.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { SelectControlValueAccessor } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -30,6 +32,7 @@ const routes: Routes = [
     HttpClientModule,
     UiModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     FontAwesomeModule,
     AppRoutingModule

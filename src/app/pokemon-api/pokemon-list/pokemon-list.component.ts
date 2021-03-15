@@ -4,6 +4,8 @@ import { Pokemon } from '../pokemon';
 import { take } from 'rxjs/operators';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
+// import { SelectControlValueAccessor } from '@angular/forms';
+// import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -23,6 +25,7 @@ export class PokemonListComponent implements OnInit {
     name: string,
     offset: number
   };
+  GenSelected: number;
   // pokemonList: Pokemon[] = [];
 
   // GenList: Array<Generation>;
@@ -40,9 +43,22 @@ export class PokemonListComponent implements OnInit {
     { 
       number: 3,
       name: 'Hoenn',
-      offset: 252
+      offset: 251
+    },
+    { 
+      number: 4,
+      name: 'Sinnoh',
+      offset: 386
+    },
+    { 
+      number: 5,
+      name: 'Unova',
+      offset: 494
     }  
   ];
+  // ngForm = new FormGroup({
+  //   state: new FormControl(this.GenerationOptions[0]),
+  // });
   // type MyArrayType = Array<{id: number, text: string}>;
   // not so sure bout this
   pageSize: number = 25;
@@ -60,6 +76,7 @@ export class PokemonListComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+
 
     this.CurrentOffset=0;
     this.getMyPokeList(this.CurrentOffset);
@@ -81,10 +98,12 @@ export class PokemonListComponent implements OnInit {
     this.CurrentOffset +=18;
     this.getMyPokeList(this.CurrentOffset);
   }
-  changeGen(offset) {
-    console.log('c_offset', offset);
 
-    this.CurrentOffset = offset;
+  changeGen(region) {
+    console.log('c_offset= ', region.offset);
+    this.GenSelected = region.number;
+
+    this.CurrentOffset = region.offset;
 
     this.getMyPokeList(this.CurrentOffset);
   }
@@ -111,7 +130,7 @@ export class PokemonListComponent implements OnInit {
       // Johto is offset by 151 - Chikorita
       // Hoenn is offset by 251 - Treeko
       // Sinnoh is offset by 386 - Turtwig
-      offset: 151 + PgOffset,
+      offset: PgOffset,
       page: this.pageNumber 
     };
 
