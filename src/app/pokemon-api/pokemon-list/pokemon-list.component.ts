@@ -3,6 +3,7 @@ import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
 import { take } from 'rxjs/operators';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -17,19 +18,38 @@ export class PokemonListComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
 
+  Generation: {
+    number: number,
+    name: string,
+    offset: number
+  };
+  // pokemonList: Pokemon[] = [];
 
+  // GenList: Array<Generation>;
+  GenerationOptions = [
+    {     
+      number: 1,
+      name: 'Kanto',
+      offset: 0
+    },
+    { 
+      number: 2,
+      name: 'Johto',
+      offset: 151
+    },
+    { 
+      number: 3,
+      name: 'Hoenn',
+      offset: 252
+    }  
+  ];
+  // type MyArrayType = Array<{id: number, text: string}>;
   // not so sure bout this
   pageSize: number = 25;
   pageNumber: number;
-
   CurrentOffset: number;
-
-
-
   isLoading: Boolean = true;
-
   pages: Array<Object> = [];
-
   error: Boolean = false;
   // Errorsubscribing: <any>;
   Errorsubscribing: any[] = [];
@@ -59,6 +79,13 @@ export class PokemonListComponent implements OnInit {
 
   NextPage() {
     this.CurrentOffset +=18;
+    this.getMyPokeList(this.CurrentOffset);
+  }
+  changeGen(offset) {
+    console.log('c_offset', offset);
+
+    this.CurrentOffset = offset;
+
     this.getMyPokeList(this.CurrentOffset);
   }
   PrevPage() {

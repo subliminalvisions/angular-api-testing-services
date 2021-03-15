@@ -3,29 +3,49 @@
       Loading failed
     </span>
     <div style="text-align:center">
-      <h1>Testing Johto Pokedex </h1>
-<!--       
-      <h4>
+      <h2 class="text-center">TEST Johto Pokedex </h2>
+<!--  <h4>
         <i>
           // next excercise: add le pagination <br>
           using offset ... and ... an ngfor loop ?? 
-
-          
         </i>
       </h4> -->
-
       <!-- <div *ngIf="error" class="row d-flex justify-content-center ">
 error: {{ error }}
       </div> -->
-
-
       <!-- <div *ngIf="!isLoading && !error" class="row d-flex justify-content-center "> -->
         <div>
-          pgs::         {{ pages }}<br>
+          Generations:: {{ GenerationOptions | json }}<br>
         </div>
+        <div>
+          <select class="form-select" 
+          [ngModel]="GenerationOptions" (ngModelChange)="changeGen($event)"
+          aria-label="Default select example">
+          <!-- (change)="changeGen($event.target.value)"   -->
+            <!-- <option selected>select region</option> -->
+            <option value="" >Choose generation</option>
+            <!-- formControlName="generation" -->
+            <!-- <option value="1">Gen 1</option>
+            <option value="2">Gen 2</option> -->
+            <!-- <option value="3">Gen 3</option> -->
+          <!-- </select>        
+          <select class="custom-select" (change)="changeCity($event)" formControlName="cityName"> -->
+            <!-- <select (change)="onChange($event.target.value)"> -->
+
+            <option *ngFor="let region of GenerationOptions" [ngValue]="region.offset"
+            >
+              {{region.name}}- 
+              {{region.offset}}
+            </option>
+         </select>
+
+          
+        </div>
+
+
+        
       <div class="row d-flex justify-content-center ">
         <ul class="pagination ">
-          
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
           <li class="page-item">
             <a 

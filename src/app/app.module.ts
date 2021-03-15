@@ -12,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PokemonComponent } from './pokemon-api/pokemon/pokemon.component';
 import { LoaderComponent } from './layout/loader/loader.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     UiModule,
+    FormsModule,
     RouterModule.forRoot(routes),
     FontAwesomeModule,
     AppRoutingModule
