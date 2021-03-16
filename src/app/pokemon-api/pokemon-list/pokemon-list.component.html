@@ -4,76 +4,49 @@
     </span>
     <div style="text-align:center">
       <h2 class="text-center">Pokemon Pokedex </h2>
-      <!-- <div *ngIf="error" class="row d-flex justify-content-center ">
-error: {{ error }}
-      </div> -->
-      <!-- <div *ngIf="!isLoading && !error" class="row d-flex justify-content-center "> -->
         <div>
-          <h5 class="text-center">Select Region </h5>
-          <!-- Generations:: {{ GenerationOptions | json }}<br> -->
+          <h6 class="text-center">(Select Region) </h6>
         </div>
         <div>
-          <form #f="ngForm">
-
-          <select class="form-select selectpicker" 
-          [ngModel]="GenSelected" 
-          (ngModelChange)="changeGen($event)"
-          name="Generation"
-          aria-label="Default select example">
-            <!-- <option selected value="" >Choose generation</option> -->
-            <option 
-            *ngFor="let region of GenerationOptions; let i = index" 
-            [selected]="i == 1" 
-            name="region.name"
-            [ngValue]="region">
-            <!-- [selected]="i == 0" -->
-
-            {{region.number}}: {{region.name}}
-              <!-- {{region.offset}} -->
-            </option>
-         </select>
-        </form>
-
+          <form #form="ngForm">
+            <select class="form-select selectpicker" 
+            [ngModel]="GenerationOptions[0]" 
+            ng-model="selectedName"
+            (ngModelChange)="changeGen($event)"
+            name="Generation"
+            aria-label="Default select example">
+              <option 
+              *ngFor="let region of GenerationOptions; let i = index" 
+              [attr.selected]="i == 0 " 
+              name="region.name"
+              [ngValue]="region">
+              {{region.name}}
+                <!-- {{region.offset}} -->
+              </option>
+            </select>
+          </form>
           
         </div>
-
-
         
       <div class="row d-flex justify-content-center ">
         <ul class="pagination ">
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
           <li class="page-item">
-            <a 
-            (click)="PrevPage()" 
-            class="pointer paginator hover-gray">
-              <!-- <i class="fas fa-chevron-left" style="font-size: 48px;"> bck </i> -->
-
-
-              <!-- <span class="icon login"></span>  -->
+            <a (click)="PrevPage()"  class="pointer paginator hover-gray">
               <fa-icon [icon]="faChevronLeft"></fa-icon>
-              <!-- <i class='fas fa-chevron-left fa-3x'>fa-3x</i><br/> -->
-
             </a>
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
-            <li class="page-item">              
-            
-              <a 
-              (click)="NextPage()" 
-              class="pointer paginator hover-gray">
+          <li class="page-item">              
+            <a (click)="NextPage()"  class="pointer paginator hover-gray">
               <fa-icon [icon]="faChevronRight"></fa-icon>
-
             </a>
-
-            <!-- (page)="pageChanged($event)" -->
             <!-- (click)="updatePage(page)" (page)="pageChanged($event)" -->
-
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li> -->
         </ul>
       </div>
-
     </div>
     <!-- <app-pokemon-loading [isLoading]='isLoading'></app-pokemon-loading> -->
     <div *ngIf="!isLoading">
@@ -81,8 +54,8 @@ error: {{ error }}
         <div class="row">
           <div class="col-md-2" *ngFor="let pokemon of pokemonGrid">
             <div class="card-deck">
-              <div class="card text-center mt-2 mb-2" style="width: 18rem;">
-                <div class="card-header">
+              <div class="poke card text-center mt-2 mb-2" style="width: 18rem;">
+                <div class="card-header px-0">
                   {{ pokemon.name }}
                   <!-- <label class="checkbox-container">Favorite
                     <input type="checkbox" (change)="onChange($event, pokemon)" [checked]="favoritePokemon.has(pokemon.id)" />

@@ -4,8 +4,8 @@ import { Pokemon } from '../pokemon';
 import { take } from 'rxjs/operators';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
-// import { SelectControlValueAccessor } from '@angular/forms';
-// import {FormControl, FormGroup} from '@angular/forms';
+import { SelectControlValueAccessor } from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -56,9 +56,9 @@ export class PokemonListComponent implements OnInit {
       offset: 494
     }  
   ];
-  // ngForm = new FormGroup({
-  //   state: new FormControl(this.GenerationOptions[0]),
-  // });
+  ngForm = new FormGroup({
+    state: new FormControl(this.GenerationOptions[1]),
+  });
   // type MyArrayType = Array<{id: number, text: string}>;
   // not so sure bout this
   pageSize: number = 25;
