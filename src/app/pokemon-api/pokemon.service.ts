@@ -34,18 +34,10 @@ export class PokemonService {
 
   getMyPokeList(dto: any) {
     console.log('getMyPokeList', dto);
-
-
-    // array .join('&');
     console.log('dto.offset', dto.offset);
     console.log('dto.limit', dto.limit);
 
-    // probably the wrong function right ?? 
-
-    // const searchUrl = environment.urls.pokemonList+'?offset='+dto.offset+'&limit='+dto.limit;;
-
     const url = environment.urls.pokemon+'?offset='+dto.offset+'&limit='+dto.limit;
-
     return this.http.get<any>(url, this.getHeaders());
   }
 
@@ -55,27 +47,6 @@ export class PokemonService {
   }
 
   getPokemonList(dto: any) {
-
-    
-
-    // pokemonList
-    // JohtopokemonList // HoennpokemonList
-
-    // hmmm , convert dto to string?
-    // next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20"
-    
-
-
-    // array .join('&');
-    console.log('dto.offset', dto.offset);
-    console.log('dto.limit', dto.limit);
-
-    // probably the wrong function right ?? 
-
-
-
-
-
     const searchUrl = environment.urls.pokemonList+'?offset='+dto.offset+'&limit='+dto.limit;;
     return this.http.get(searchUrl, this.getHeaders())
       .toPromise()
@@ -92,14 +63,6 @@ export class PokemonService {
           newid = entry.pokemon_species.url.match(/\/[0-9]+(?=\/)/g).toString(); 
           newid = newid.substring(1); 
           idnum = parseInt(newid); 
-          
-            // only create Pokemon for Gen 2 ... testing 
-            // pokemon.id = entry.entry_number;
-            // pokemon.id = this.urlToID(entry.pokemon_species.url); 
-            // newid = entry.pokemon_species.url.match(/\/[0-9]+(?=\/)/g).replace('/', ''); 
-            // newid.replace('/', ''); 
-            // console.log(parseInt(newid));
-            // console.log(pokemon.name);
               let pokemon = new Pokemon();
               pokemon.name = entry.pokemon_species.name;
               pokemon.id = parseInt(newid); 
@@ -110,19 +73,34 @@ export class PokemonService {
               // attemt at offset but not sure that's a good way
               if (+(idnum) >= +(151)) {
               }
-
-
-
         });
         console.log(pokemonList);
         return pokemonList;
-
       });
   }
 
+
+  getPokeInfoByID(id: number) {
+      console.log('id', id);
+  
+      const url = environment.urls.pokemonspecies + id + '/';
+      // const this.http.get(
+      //   environment.urls.pokemonspecies + id + '/', this.getHeaders()
+      //   )
+
+      return this.http.get<any>(url, this.getHeaders());
+    
+  }
+
   getPokemonInfo(id: number) {
-    return this.http.get(environment.urls.pokemon + id + '/', this.getHeaders())
-      .toPromise()
+
+
+    // pokemonspecies
+    return this.http.get(environment.urls.pokemonspecies + id + '/', this.getHeaders())
+    
+    // ooooohhhh need to rewrite 
+    // from Promise over to Observable, the newer way 
+    .toPromise()
       .then((res: HttpResponse<Pokemon>) => {
         let info = res;
         let pokemon = new Pokemon();

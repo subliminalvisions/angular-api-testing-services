@@ -14,7 +14,9 @@ export class Pokemon {
             this.name.charAt(0).toUpperCase() + this.name.slice(1) : '';
     }
 
-    getImage() {
-        return environment.urls.sprite + this.id + '.png';
+    getImage(id) {
+        const pokeImgae = environment.urls.sprite + id + '.png';
+        console.log('pokeImgae', pokeImgae);
+        return pokeImgae;
     }
 }
