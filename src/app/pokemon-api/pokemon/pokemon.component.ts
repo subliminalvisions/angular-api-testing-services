@@ -49,7 +49,8 @@ export class PokemonComponent implements OnInit {
         console.log('response', response);
 
         this.imgUrl = this.pokemon.getImage(this.ID);
-        this.pokeName = response.name;
+        this.pokemon.name = response.name;
+        this.pokemon.flavor_text_entries = response.flavor_text_entries;
 
         
         

@@ -5,6 +5,7 @@ export class Pokemon {
     id: number;
     types = [];
     stats = [];
+    flavor_text_entries = [];
     isChecked = false;
 
     constructor() { }

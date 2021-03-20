@@ -31,13 +31,16 @@
               </div>
   
               <div class="card-body bg-light">
-                <h5 class="card-text">{{ pokeName }}</h5>
+                <h5 class="card-text">{{ pokemon.capitalizeName() }}</h5>
                 <h5 class="card-text">Stats:</h5>
                 <ul class="list-unstyled">
                   <li *ngFor="let stat of pokemon.stats">
-                    {{ pokeName }}: {{ stat.value }}
+                    {{ stat.value }}: {{ stat.value }}
                   </li>
                 </ul>
+                <p>{{ pokemon.flavor_text_entries[2].flavor_text  }}
+                  <!-- pokemon.flavor_text_entries[2] -->
+                </p>
               </div>
   
             </div>
