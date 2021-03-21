@@ -5,10 +5,33 @@
       Loading failed
     </span>
     <div *ngIf="!isLoading && !error">
+      <div class="container ">
+        <div class="row d-flex justify-content-center ">
+          <h1> test --- </h1>
+          <ul class="pagination ">
+            <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
+            <li class="page-item">
+              <a (click)="backClicked()"  class="pointer paginator hover-gray">
+                <fa-icon [icon]="faCoffee"></fa-icon>
+              </a>
+            </li>
+            <li class="page-item">              
+              <a (click)="backClicked()"  class="pointer paginator hover-gray">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+              </a>
+            </li>
+          </ul>
+
+          <!-- <h1> test --- </h1> -->
+        <!-- <div class="col-md-12">
+
+        </div> -->
+      </div>
+      </div>
       <div class="container content ">
         <div class="row d-flex justify-content-center">
           <div class="col-md-6">
-            <h1>#{{ pokemon.id }} {{ pokemon.capitalizeName() }}</h1>
+            <h1 class="text-center">#{{ pokemon.id }} {{ pokemon.capitalizeName() }}</h1>
   
             <div class="card flex-row flex-wrap w-100 text-center">
               <div class="card-body">
@@ -21,18 +44,18 @@
                 <img class="card-img-top" src="{{ imgUrl }}" alt="{{pokemon.capitalizeName()}}">
               </div>
   
-              <div class="card-body bg-light">
+              <!-- <div class="card-body bg-light">
                 <h5 class="card-subtitle">Types:</h5>
                 <div>
                   <div class="type type-{{ type }} text-center" *ngFor="let type of pokemon.types">
-                    {{ type }}
+                    {{ type }} ?? 
                   </div>
                 </div>
-              </div>
+              </div> -->
   
               <div class="card-body bg-light">
-                <h5 class="card-text">{{ pokemon.capitalizeName() }}</h5>
-                <h5 class="card-text">Stats:</h5>
+                <h5 class="card-text">About {{ pokemon.capitalizeName() }}:</h5>
+                <!-- <h5 class="card-text">Stats:</h5> -->
                 <ul class="list-unstyled">
                   <li *ngFor="let stat of pokemon.stats">
                     {{ stat.value }}: {{ stat.value }}
@@ -40,6 +63,7 @@
                 </ul>
                 <p>{{ pokemon.flavor_text_entries[2].flavor_text  }}
                   <!-- pokemon.flavor_text_entries[2] -->
+                  
                 </p>
               </div>
   
@@ -47,6 +71,14 @@
           </div>
         </div>
       </div>
+
+      <!-- <div class="container">
+        {{ pokemon | json }}
+
+      </div> -->
+
+
+
     </div>
   </app-layout>
   

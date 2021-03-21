@@ -3,6 +3,9 @@ import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
 import { ActivatedRoute } from '@angular/router';
 // import { FavoritePokemonService} from '../favorite-pokemon.service';
+import { Location } from '@angular/common';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pokemon',
@@ -18,9 +21,15 @@ export class PokemonComponent implements OnInit {
   pokeName: string;
   ID: number;
 
+  faChevronLeft = faChevronLeft;
+  faChevronRight = faChevronRight;
+  faCoffee = faCoffee;
+
+  
   constructor(
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
+    private _location: Location
     // private favoritePokemon: FavoritePokemonService
     ) { }
 
@@ -29,6 +38,12 @@ export class PokemonComponent implements OnInit {
     console.log('id', this.ID);
     this.getMyPokeInfo(this.ID);
 
+  }
+  backClicked() {
+    this._location.back();
+  }
+  fwdClicked() {
+    this._location.back();
   }
 
   getMyPokeInfo(ID) {
@@ -50,6 +65,7 @@ export class PokemonComponent implements OnInit {
 
         this.imgUrl = this.pokemon.getImage(this.ID);
         this.pokemon.name = response.name;
+        this.pokemon.id = this.ID;
         this.pokemon.flavor_text_entries = response.flavor_text_entries;
 
         
