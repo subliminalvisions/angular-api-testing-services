@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
-import {faCoffee, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pokemon',
@@ -20,72 +17,40 @@ export class PokemonComponent implements OnInit {
   pokeName: string;
   ID: number;
 
-  faChevronLeft = faChevronLeft;
-  faChevronRight = faChevronRight;
-  // faCoffee = faCoffee;
-  faCoffee = faCoffee;
-  // faFilm = faFilm;
 
-  
   constructor(
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
-    private _location: Location
-    // private favoritePokemon: FavoritePokemonService
     ) { }
-  backClicked() {
-    this._location.back();
-  }
+
   ngOnInit() {
     this.ID = this.route.snapshot.params['id'];
     console.log('id', this.ID);
     this.getMyPokeInfo(this.ID);
 
   }
-
-  fwdClicked() {
-    this._location.back();
+  loadNext() {
+    console.log('load nxt')
   }
 
-//   getMyPokeInfo(ID) {
-//     const dto = {
-//     };
-//     this.isLoading = true;
-//     this.pokemonService.getPokeInfoByID(ID).subscribe(
-// // getMyPokeInfo
-//       // err => console.log('HTTP Error??', err),
-//       response => {
-//         console.log('getPokeInfoByID --->resp', response);
-//         this.isLoading = false;
-//         // const totalPages = Math.ceil(response.results.length / 18);
-//         // for (let index = 0; index < totalPages; index++) {
-//         //   this.pages.push({ index: index + 1 });
-//         // }
-//         // console.log(response.results.length);
-//         console.log('response', response);
-
-//         this.imgUrl = this.pokemon.getImage(this.ID);
-//         this.pokemon.name = response.name;
-//         this.pokemon.id = this.ID;
-//         this.pokemon.flavor_text_entries = response.flavor_text_entries;
-
-        
-        
-//         // const newDs = response.map(obj => {         
-//         //   return {
-//         //     ...obj,
-//         //     // id: parseInt(obj.url.split('/')[6]),
-//         //     // imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${parseInt(obj.url.split('/')[6])}.png`
-//         //   }
-//         // });
-//         // this.pokemonList = newDs;
-//         // this.updatePage({ index: 1 });
-//         // console.log('newDs --->', newDs);
-//         // this.pokemonGrid = newDs;
-//         // this.isLoading = false;
-//       }
-//     );
-//   }
+  getMyPokeInfo(ID) {
+    const dto = {
+    };
+    this.isLoading = true;
+    this.pokemonService.getPokeInfoByID(ID).subscribe(
+      // err => console.log('HTTP Error??', err),
+      response => {
+        console.log('getPokeInfoByID --->resp', response);
+        this.isLoading = false;
+        console.log('response', response);
+        this.imgUrl = this.pokemon.getImage(this.ID);
+        this.pokemon.id = this.ID;
+        this.pokemon.name = response.name;
+        this.pokemon.flavor_text_entries = response.flavor_text_entries;
+        this.isLoading = false;
+      }
+    );
+  }
 
   // onChange(event, pokemon) {
   //   if (event.target.checked) {

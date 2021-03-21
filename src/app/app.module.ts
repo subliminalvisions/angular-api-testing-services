@@ -29,6 +29,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
   { path: 'pokemon/:id', component: PokemonComponent },
