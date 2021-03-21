@@ -4,8 +4,11 @@ import { Pokemon } from '../pokemon';
 import { ActivatedRoute } from '@angular/router';
 // import { FavoritePokemonService} from '../favorite-pokemon.service';
 import { Location } from '@angular/common';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
+// import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+// import { fas, faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+// import { fas, faFilm } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pokemon',
@@ -21,9 +24,11 @@ export class PokemonComponent implements OnInit {
   pokeName: string;
   ID: number;
 
-  faChevronLeft = faChevronLeft;
-  faChevronRight = faChevronRight;
+  // faChevronLeft = faChevronLeft;
+  // faChevronRight = faChevronRight;
+  // faCoffee = faCoffee;
   faCoffee = faCoffee;
+  // faFilm = faFilm;
 
   
   constructor(

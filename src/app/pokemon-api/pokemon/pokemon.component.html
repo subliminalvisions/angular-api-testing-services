@@ -1,3 +1,26 @@
+
+          <h1> test --- </h1>
+          <ul class="pagination ">
+            <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
+            <li class="page-item">
+              <a (click)="backClicked()"  class="pointer paginator hover-gray">
+                <fa-icon [icon]="faCoffee"></fa-icon>
+              </a>
+            </li>
+            <!-- <li class="page-item">              
+              <a (click)="backClicked()"  class="pointer paginator hover-gray">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+              </a>
+            </li> -->
+
+
+            <!-- <li class="page-item">              
+              <a (click)="backClicked()"  class="pointer paginator hover-gray">
+                <fa-icon [icon]="faFilm"></fa-icon>
+              </a>
+            </li> -->
+          </ul>
+
 <app-layout [isFixedBottom]="true">
     <!-- <app-pokemon-loading [isLoading]='isLoading'></app-pokemon-loading> -->
   
@@ -7,20 +30,7 @@
     <div *ngIf="!isLoading && !error">
       <div class="container ">
         <div class="row d-flex justify-content-center ">
-          <h1> test --- </h1>
-          <ul class="pagination ">
-            <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
-            <li class="page-item">
-              <a (click)="backClicked()"  class="pointer paginator hover-gray">
-                <fa-icon [icon]="faCoffee"></fa-icon>
-              </a>
-            </li>
-            <li class="page-item">              
-              <a (click)="backClicked()"  class="pointer paginator hover-gray">
-                <fa-icon [icon]="faChevronRight"></fa-icon>
-              </a>
-            </li>
-          </ul>
+
 
           <!-- <h1> test --- </h1> -->
         <!-- <div class="col-md-12">

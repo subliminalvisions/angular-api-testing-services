@@ -11,10 +11,21 @@ import { PokemonService } from './pokemon-api/pokemon.service';
 import { RouterModule, Routes } from '@angular/router';
 import { PokemonComponent } from './pokemon-api/pokemon/pokemon.component';
 import { LoaderComponent } from './layout/loader/loader.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
+// import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
+// import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -24,6 +35,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     PokemonListComponent,
+    FaIconComponent,
     LoaderComponent,
     // LayoutComponent
   ],
@@ -34,10 +46,17 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    FontAwesomeModule,
+    // FontAwesomeModule,
     AppRoutingModule
   ],
   providers: [PokemonService, ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor() {}
+
+  // constructor(library: FaIconLibrary) {
+  //   library.addIconPacks(fas);
+  //   library.addIcons(faCoffee);
+  // }
+}
