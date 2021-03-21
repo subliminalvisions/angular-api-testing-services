@@ -15,7 +15,9 @@ import { FormsModule } from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+// import { FaIconComponent, FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
@@ -35,7 +37,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     PokemonListComponent,
-    FaIconComponent,
+    // FaIconComponent,
     LoaderComponent,
     // LayoutComponent
   ],
@@ -47,7 +49,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     // FontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [PokemonService, ],
   bootstrap: [AppComponent]
