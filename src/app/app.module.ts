@@ -16,7 +16,6 @@ import { SelectControlValueAccessor } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // import { FaIconComponent, FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -31,6 +30,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -55,6 +55,9 @@ const routes: Routes = [
     AppRoutingModule,
     FontAwesomeModule
   ],
+  // exports: [
+  //   FontAwesomeModule
+  // ],
   providers: [PokemonService, ],
   bootstrap: [AppComponent]
 })

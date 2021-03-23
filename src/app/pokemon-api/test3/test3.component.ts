@@ -4,6 +4,7 @@ import {faCoffee, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-s
 import { FormsModule } from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import {FormControl, FormGroup} from '@angular/forms';
+import {faHandPointLeft, faHandPointRight} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-test3',
@@ -12,9 +13,12 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 
 export class Test3Component implements OnInit {
+  
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
   faCoffee = faCoffee;
+  faHandPointLeft = faHandPointLeft;
+  faHandPointRight = faHandPointRight;
 
   constructor() { }
 

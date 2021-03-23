@@ -33,14 +33,15 @@
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
           <li class="page-item">
             <a (click)="PrevPage()"  class="pointer paginator hover-gray">
-              <fa-icon [icon]="faChevronLeft"></fa-icon>
+              <i class="fas fa-chevron-left"></i>
+              <!-- <fa-icon [icon]="faHandPointLeft"></fa-icon> -->
             </a>
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
           <li class="page-item">              
             <a (click)="NextPage()"  class="pointer paginator hover-gray">
-              <fa-icon [icon]="faChevronRight"></fa-icon>
-            </a>
+              <i class="fas fa-chevron-right"></i>
+                        </a>
             <!-- (click)="updatePage(page)" (page)="pageChanged($event)" -->
             <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>

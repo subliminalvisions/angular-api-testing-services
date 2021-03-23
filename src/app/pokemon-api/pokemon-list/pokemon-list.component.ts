@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
 import { take } from 'rxjs/operators';
-import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faHandPointLeft, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -19,6 +19,7 @@ export class PokemonListComponent implements OnInit {
   pokemonGrid: Pokemon[] = [];
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
+  faHandPointLeft = faHandPointLeft;
 
   Generation: {
     number: number,
