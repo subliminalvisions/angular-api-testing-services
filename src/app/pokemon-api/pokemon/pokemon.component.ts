@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon',
@@ -16,23 +17,41 @@ export class PokemonComponent implements OnInit {
   imgUrl: string;
   pokeName: string;
   ID: number;
+  nextID: number;
+  prevID: number;
+
 
 
   constructor(
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
+    private router: Router,
     ) { }
 
   ngOnInit() {
-    this.ID = this.route.snapshot.params['id'];
-    console.log('id', this.ID);
+    this.setPageId();
     this.getMyPokeInfo(this.ID);
-
+  }
+  setPageId() {
+    // this.route.queryParams.subscribe(params => {
+    //   this.ID = params['id'];
+    // });
+    this.ID = this.route.snapshot.params['id'];    
+    this.nextID = +this.ID + +1;
+    this.prevID = this.ID-1;
+    console.log('id', this.ID);
+    console.log('nextID', this.nextID);
+    console.log('prevID', this.prevID);
   }
   loadNext() {
-    console.log('load nxt')
+    this.router.navigate(['pokemon', this.nextID]);
+    console.log('load nxt');
+    // <!-- [routerLink]="['/pokemon', nextID]" -->
   }
-
+  loadPrev() {
+    this.router.navigate(['pokemon', this.prevID]);
+    console.log('load Prev')
+  }
   getMyPokeInfo(ID) {
     const dto = {
     };
