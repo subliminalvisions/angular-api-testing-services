@@ -26,17 +26,22 @@ export class PokemonComponent implements OnInit {
     private pokemonService: PokemonService,
     private route: ActivatedRoute,
     private router: Router,
-    ) { }
+    ) {
+            // force route reload whenever params change;
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+     }
 
   ngOnInit() {
     this.setPageId();
     this.getMyPokeInfo(this.ID);
   }
   setPageId() {
-    // this.route.queryParams.subscribe(params => {
-    //   this.ID = params['id'];
-    // });
-    this.ID = this.route.snapshot.params['id'];    
+    this.route.params.subscribe(params => {
+      this.ID = params['id'];
+      // this.ID = this.route.snapshot.params['id'];    
+      // reset and set based on new parameter this time
+      this.getMyPokeInfo(this.ID);
+    });
     this.nextID = +this.ID + +1;
     this.prevID = this.ID-1;
     console.log('id', this.ID);
