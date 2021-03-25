@@ -46,6 +46,9 @@ export class PokemonComponent implements OnInit {
     console.log('nextID', this.nextID);
     console.log('prevID', this.prevID);
   }
+  goToPokeList= function () {
+    this.router.navigateByUrl('/pokelist');
+  }
   loadNext() {
     this.router.navigate(['pokemon', this.nextID]);
     console.log('load nxt');

@@ -6,8 +6,12 @@
   <div *ngIf="!isLoading && !error">
     <div class="container content ">
       <div class="row d-flex justify-content-center">
-        <div class="col-md-4">
-          <a [routerLink]="['/pokelist']" class="btn gray">           
+        <div class="col-md-4" >
+          <a routerLink="pokelist" class="btn gray"
+          
+          (click)="goToPokeList()"  
+
+          >           
             <i class="fas fa-undo-alt"></i>
             <span> Region </span>
           </a>
