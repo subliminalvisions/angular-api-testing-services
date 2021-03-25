@@ -6,6 +6,15 @@
   <div *ngIf="!isLoading && !error">
     <div class="container content ">
       <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+          <a [routerLink]="['/pokelist']" class="btn gray">           
+            <i class="fas fa-undo-alt"></i>
+            <span> Region </span>
+          </a>
+        </div>
+
+      </div>
+      <div class="row d-flex justify-content-center">
         <div class="col-md-2">
           <ul class="pagination ">
             <li class="page-item">
@@ -29,11 +38,6 @@
 
             <div class="card-body bg-light">
               <h5 class="card-text">About {{ pokemon.capitalizeName() }}:</h5>
-              <!-- <ul class="list-unstyled">
-                <li *ngFor="let stat of pokemon.stats">
-                  {{ stat.value }}: {{ stat.value }}
-                </li>
-              </ul> -->
               <p>{{ pokemon.flavor_text_entries[2].flavor_text  }}
               </p>
             </div>
@@ -47,7 +51,6 @@
               <a 
               (click)="loadNext()"  
               class="pointer paginator hover-gray">
-              <!-- [routerLink]="['/pokemon', nextID]" -->
                 <i class="fas fa-chevron-right"></i>
               </a>
             </li>

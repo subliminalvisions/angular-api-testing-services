@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
-// import { ActivatedRoute } from '@angular/router';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
 
 @Component({
   selector: 'app-pokemon',
@@ -19,8 +19,6 @@ export class PokemonComponent implements OnInit {
   ID: number;
   nextID: number;
   prevID: number;
-
-
 
   constructor(
     private pokemonService: PokemonService,

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { FavoritePokemonService} from '../favorite-pokemon.service';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
