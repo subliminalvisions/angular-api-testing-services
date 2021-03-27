@@ -27,10 +27,14 @@
           </form>
           
         </div>
+
+        <div>
+          <!-- output region here  -->
+            <!-- {{region.offset}} -->
+        </div>
         
       <div class="row d-flex justify-content-center ">
         <ul class="pagination ">
-          <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"> -->
           <li class="page-item">
             <a (click)="PrevPage()"  class="pointer paginator hover-gray">
               <i class="fas fa-chevron-left"></i>
@@ -40,10 +44,7 @@
           </li>
           <li class="page-item">              
             <a (click)="NextPage()"  class="pointer paginator hover-gray">
-              <i class="fas fa-chevron-right"></i>
-                        </a>
-            <!-- (click)="updatePage(page)" (page)="pageChanged($event)" -->
-            <!-- <a class="page-link" href="#">{{page.index}}</a> -->
+              <i class="fas fa-chevron-right"></i></a>
           </li>
           <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li> -->
         </ul>
@@ -58,14 +59,9 @@
               <div class="poke card text-center mt-2 mb-2" style="width: 18rem;">
                 <div class="card-header px-0">
                   {{ pokemon.name }}
-                  <!-- <label class="checkbox-container">Favorite
-                    <input type="checkbox" (change)="onChange($event, pokemon)" [checked]="favoritePokemon.has(pokemon.id)" />
-                    <span class="checkmark {{pokemon.isChecked ? 'fa fa-star' : 'fa fa-star-o' }}"></span>
-                  </label> -->
                 </div>
                 <a [routerLink]="['/pokemon', pokemon.id]">
                   <div class="card-body">
-                    <!--  -->
                   <img class="card-img-top" src="{{ pokemon.imageUrl }}" >
                 </div>
                 </a>

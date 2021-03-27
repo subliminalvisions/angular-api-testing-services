@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
+import { PokeregionService } from '../pokeregion.service';
 import { Pokemon } from '../pokemon';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
@@ -16,12 +17,14 @@ export class PokemonComponent implements OnInit {
   error: Boolean = false;
   imgUrl: string;
   pokeName: string;
+  Region: string;
   ID: number;
   nextID: number;
   prevID: number;
 
   constructor(
     private pokemonService: PokemonService,
+    private currentRegion: PokeregionService,
     private route: ActivatedRoute,
     private router: Router,
     ) {
@@ -34,17 +37,21 @@ export class PokemonComponent implements OnInit {
     this.getMyPokeInfo(this.ID);
   }
   setPageId() {
+
     this.route.params.subscribe(params => {
       this.ID = params['id'];
       // this.ID = this.route.snapshot.params['id'];    
       // reset and set based on new parameter this time
       this.getMyPokeInfo(this.ID);
     });
+    this.Region = this.currentRegion.getRegionbyID(this.ID);
+    console.log(this.Region);
+
     this.nextID = +this.ID + +1;
     this.prevID = this.ID-1;
     console.log('id', this.ID);
-    console.log('nextID', this.nextID);
-    console.log('prevID', this.prevID);
+    // console.log('nextID', this.nextID);
+    // console.log('prevID', this.prevID);
   }
   goToPokeList= function () {
     this.router.navigateByUrl('/pokelist');
