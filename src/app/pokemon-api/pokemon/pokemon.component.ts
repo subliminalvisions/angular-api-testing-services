@@ -17,10 +17,11 @@ export class PokemonComponent implements OnInit {
   error: Boolean = false;
   imgUrl: string;
   pokeName: string;
-  Region: string;
   ID: number;
   nextID: number;
   prevID: number;
+  regionOffset: number;
+  Region: string;
 
   constructor(
     private pokemonService: PokemonService,
@@ -45,6 +46,7 @@ export class PokemonComponent implements OnInit {
       this.getMyPokeInfo(this.ID);
     });
     this.Region = this.currentRegion.getRegionbyID(this.ID);
+    this.regionOffset = this.currentRegion.getRegionOffsetbyID(this.ID);
     console.log(this.Region);
 
     this.nextID = +this.ID + +1;
@@ -54,7 +56,9 @@ export class PokemonComponent implements OnInit {
     // console.log('prevID', this.prevID);
   }
   goToPokeList= function () {
-    this.router.navigateByUrl('/pokelist');
+    // this.router.navigateByUrl('/pokelist');
+    this.router.navigateByUrl('/pokelist/'+this.regionOffset);
+
   }
   loadNext() {
     this.router.navigate(['pokemon', this.nextID]);
@@ -66,8 +70,7 @@ export class PokemonComponent implements OnInit {
     console.log('load Prev')
   }
   getMyPokeInfo(ID) {
-    const dto = {
-    };
+    const dto = {};
     this.isLoading = true;
     this.pokemonService.getPokeInfoByID(ID).subscribe(
       // err => console.log('HTTP Error??', err),
@@ -83,15 +86,5 @@ export class PokemonComponent implements OnInit {
       }
     );
   }
-
-  // onChange(event, pokemon) {
-  //   if (event.target.checked) {
-  //       // this.favoritePokemon.add(pokemon.id);
-  //       pokemon.isChecked = true;
-  //   } else {
-  //       // this.favoritePokemon.remove(pokemon.id);
-  //       pokemon.isChecked = false;
-  //   }
-  // }
 
 }

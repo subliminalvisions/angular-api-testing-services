@@ -8,7 +8,7 @@ import { PokemonComponent } from './pokemon-api/pokemon/pokemon.component';
 
 const routes: Routes = [
   // { path: '', component: PokemonListComponent },
-  { path: 'pokelist', component: PokemonListComponent },
+  { path: 'pokelist/:offset', component: PokemonListComponent },
   { path: 'pokemon/:id', component: PokemonComponent },
 ];
 

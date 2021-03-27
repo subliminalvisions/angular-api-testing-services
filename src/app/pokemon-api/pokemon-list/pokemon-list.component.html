@@ -7,10 +7,16 @@
         <div>
           <h6 class="text-center">(Select Region) </h6>
         </div>
+        <!-- <div class="reg">
+          {{ regionIndex }}
+        </div> -->
+        <!-- <div class="reg"> test Region
+          {{ GenerationOptions | json }}
+        </div> -->
         <div>
           <form #form="ngForm">
             <select class="form-select selectpicker" 
-            [ngModel]="GenerationOptions[0]" 
+            [ngModel]="GenerationOptions[regionIndex]" 
             ng-model="selectedName"
             (ngModelChange)="changeGen($event)"
             name="Generation"

@@ -5,7 +5,9 @@ import { take } from 'rxjs/operators';
 import {faHandPointLeft, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { SelectControlValueAccessor } from '@angular/forms';
-import {FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { PokeregionService } from '../pokeregion.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -20,6 +22,7 @@ export class PokemonListComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
   faHandPointLeft = faHandPointLeft;
+  listOffset: number;
 
   Generation: {
     number: number,
@@ -30,35 +33,40 @@ export class PokemonListComponent implements OnInit {
   // pokemonList: Pokemon[] = [];
 
   // GenList: Array<Generation>;
-  GenerationOptions = [
-    {     
-      number: 1,
-      name: 'Kanto',
-      offset: 0
-    },
-    { 
-      number: 2,
-      name: 'Johto',
-      offset: 151
-    },
-    { 
-      number: 3,
-      name: 'Hoenn',
-      offset: 251
-    },
-    { 
-      number: 4,
-      name: 'Sinnoh',
-      offset: 386
-    },
-    { 
-      number: 5,
-      name: 'Unova',
-      offset: 494
-    }  
-  ];
+  // const user02 = <User>{};
+
+  GenerationOptions: {};
+  // let planet = {};
+
+  // GenerationOptions = [
+  //   {     
+  //     number: 1,
+  //     name: 'Kanto',
+  //     offset: 0
+  //   },
+  //   { 
+  //     number: 2,
+  //     name: 'Johto',
+  //     offset: 151
+  //   },
+  //   { 
+  //     number: 3,
+  //     name: 'Hoenn',
+  //     offset: 251
+  //   },
+  //   { 
+  //     number: 4,
+  //     name: 'Sinnoh',
+  //     offset: 386
+  //   },
+  //   { 
+  //     number: 5,
+  //     name: 'Unova',
+  //     offset: 494
+  //   }  
+  // ];
   ngForm = new FormGroup({
-    state: new FormControl(this.GenerationOptions[1]),
+    // state: new FormControl(this.GenerationOptions[0]),
   });
   // type MyArrayType = Array<{id: number, text: string}>;
   // not so sure bout this
@@ -70,19 +78,74 @@ export class PokemonListComponent implements OnInit {
   error: Boolean = false;
   // Errorsubscribing: <any>;
   Errorsubscribing: any[] = [];
+  Region: string;
+  regionIndex: number;
 
   constructor(
+    private regions: PokeregionService,
     private pokemonService: PokemonService,
+    private route: ActivatedRoute,
+    private router: Router,
     // private favoritePokemon: FavoritePokemonService
-    ) { }
+    ) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
+
+  getPageOffset() {
+    this.GenerationOptions = this.regions.regionData;
+    this.route.params.subscribe(params => {
+      this.listOffset = params['offset'];
+      this.CurrentOffset = params['offset'];
+      // this.ID = this.route.snapshot.params['id'];    
+      // reset and set based on new parameter this time
+      this.regionIndex = this.matchRegion();
+      this.getMyPokeList(this.CurrentOffset);
+    });
+  }
 
   ngOnInit() {
-
-
     this.CurrentOffset=0;
-    this.getMyPokeList(this.CurrentOffset);
+    this.getPageOffset();
     // this.getPokeImage(15);
   }
+
+  // isRegion() {
+  //   return num === this.currentRegion.regionData.maxnum;
+  // }
+  // test
+  // test
+  findIndexWithNumber(array, attr, num) {
+    console.log('arr', array);
+    const x = num;
+    let y: number = +x;
+        // value
+    // console.log(value);
+    // console.log(array.length);
+    for(var i = 0; i < array.length; i += 1) {
+      
+      if(array[i][attr] === y) {
+          console.log('arraymatch_val', array[i][attr]);
+          // console.log()
+            return i;
+        }
+    }
+    return -1;
+  }
+  // const isLargeNumber = (element) => element > 13;
+
+  matchRegion() {
+    // let nmbr = this.CurrentOffset;
+    let indx = -1;
+    // this.findWithAttr(this.currentRegion, 'offset', nmbr);
+    // console.log('num1,, ',nmbr);
+    console.log(this.CurrentOffset);
+    indx = this.findIndexWithNumber(this.regions.regionData, 'offset', this.CurrentOffset);
+    console.log(indx);
+    return indx;
+    // this.currentRegion.regionData.maxnum === this.CurrentOffset;
+    // PokeregionService
+  }
+  
 
   // <mat-paginator [hidePageSize]="true" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [length]="totalRows" (page)="pageChanged($event)"></mat-paginator>
   
@@ -93,68 +156,45 @@ export class PokemonListComponent implements OnInit {
   //   this.getMyPokeList();
   // }
 
-
-
   NextPage() {
-    this.CurrentOffset +=18;
+    this.CurrentOffset = +this.CurrentOffset +18;
     this.getMyPokeList(this.CurrentOffset);
-  }
-
-  changeGen(region) {
-    console.log('c_offset= ', region.offset);
-    this.GenSelected = region.number;
-
-    this.CurrentOffset = region.offset;
-
-    this.getMyPokeList(this.CurrentOffset);
+    this.router.navigateByUrl('/pokelist/'+this.CurrentOffset);
   }
   PrevPage() {
-    this.CurrentOffset -=18;
+    this.CurrentOffset = +this.CurrentOffset + -18;
     this.getMyPokeList(this.CurrentOffset);
+    this.router.navigateByUrl('/pokelist/'+this.CurrentOffset);
   }
-
+  changeGen(region) {
+    this.GenSelected = region.number;
+    this.CurrentOffset = region.offset;
+    this.router.navigateByUrl('/pokelist/'+this.CurrentOffset);
+    this.getMyPokeList(this.CurrentOffset);    
+  }
   getMyPokeList(PgOffset) {
     const dto = {
     };
     this.isLoading = true;
 
-
-
     // const orderBy = (this.sortOrder === 'asc') ? this.sortField : '-' + this.sortField;
-
     var searchCriteria = {
       // orderBy: orderBy,
       // limit: this.pageSize,
       // offset: (this.pageNumber * this.pageSize),
       // limit: 33,
       limit: 18,
-      // Johto is offset by 151 - Chikorita
-      // Hoenn is offset by 251 - Treeko
-      // Sinnoh is offset by 386 - Turtwig
       offset: PgOffset,
       page: this.pageNumber 
     };
 
-      // call service for search, not NgRx
-      //-----
-    // this.pokemonService.getMyPokeList(searchCriteria).pipe(
-    //   take(1),
-    // ).subscribe(
-    //   data => {
-    //     console.log('service', data.body.data); // ??? 
-    //     this.dataSource.data = data.body.data.results;
-    //     this.filteredHeroes = data.body.data.total;
-    //     this.totalRows = this.filteredHeroes;
-    //   }
-    // );
     this.pokemonService.getMyPokeList(searchCriteria).subscribe(
 
       // err => console.log('HTTP Error??', err),
 
       response => {
 
-
-        console.log('getMyPokeList --->resp', response);
+        // console.log('getMyPokeList --->resp', response);
 
         // trying to add pagination props to this search  
         this.pages = [];
@@ -166,8 +206,8 @@ export class PokemonListComponent implements OnInit {
           this.pages.push({ index: index + 1 });
         }
 
-        console.log(response.results.length);
-        console.log(this.pages);
+        // console.log(response.results.length);
+        // console.log(this.pages);
 
 
         const newDs = response.results.map(obj => {
@@ -184,7 +224,7 @@ export class PokemonListComponent implements OnInit {
 
         this.updatePage({ index: 1 });
 
-        console.log('newDs --->', newDs);
+        // console.log('newDs --->', newDs);
         
         this.pokemonGrid = newDs;
         this.isLoading = false;
@@ -218,38 +258,6 @@ export class PokemonListComponent implements OnInit {
       }
     );
   }
-
-/*
-  getListOfPokes() {
-
-    // dto criteria
-    const pokeListOjbect = {
-
-    };
-
-    this.pokemonService.getMyPokeList(pokeListOjbect)
-      .then((pokemon) => {
-        this.pages = [];
-        this.isLoading = false;
-
-        const totalPages = Math.ceil(pokemon.length / 15);
-
-        for (let index = 0; index < totalPages; index++) {
-          this.pages.push({ index: index + 1 });
-        }
-
-        this.pokemonList = pokemon;
-
-        this.updatePage({ index: 1 });
-      })
-      .catch(() => {
-        this.error = true;
-        this.isLoading = false;
-      });
-  }
-  */
-
- 
 
   onChange(event, pokemon) {
     if (event.target.checked) {
