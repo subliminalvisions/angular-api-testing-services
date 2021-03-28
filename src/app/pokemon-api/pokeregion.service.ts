@@ -33,7 +33,18 @@ export class PokeregionService {
           number: 5,
           name: 'Unova',
           offset: 494
+      },  
+      { 
+          number: 6,
+          name: 'Kalos',
+          offset: 648
+      },
+      { 
+          number: 7,
+          name: 'Unreleased',
+          offset: 722
       }  
+      
   ];
   num: number;
   constructor() { }
@@ -42,39 +53,25 @@ export class PokeregionService {
     const r = " Region";
     let current = "Kanto";
     if (id<152) { current = "Kanto" };
-    if (151<id && id<252) { current =  "Johto" };
+    if (150<id && id<251) { current =  "Johto" };
     if (251<id && id<387) { current =  "Hoenn" };
     if (386<id && id<495) { current =  "Sinnoh" };
-    if (494<id && id<649) { current =  "Unova" };
-    if (648<id && id<722) { current =  "Kalos" };
-    if ( 721<id ) { current =  "Unreleased" };
+    if (494<id && id<648) { current =  "Unova" };
+    if (647<id && id<722) { current =  "Kalos" };
+    if (721<id ) { current =  "Unreleased" };
     return current+r;
   }
 
   getRegionOffsetbyID(id: number) {
     let current = 0;
-    if (id<152) { current = 0 };
-    if (151<id && id<252) { current =  151 };
-    if (251<id && id<387) { current =  251 };
-    if (386<id && id<495) { current =  386 };
-    if (494<id && id<649) { current =  494 };
-    if (648<id && id<722) { current =  648 };
-    if ( 721<id ) { current =  721 };
+    if (id<151) { current = 0 };
+    if (150<id && id<251) { current =  151 };
+    if (250<id && id<386) { current =  251 };
+    if (385<id && id<494) { current =  386 };
+    if (493<id && id<648) { current =  494 };
+    if (647<id && id<723) { current =  648 };
+    if (721<id ) { current =  722 };
     return current;
-  }
-
-
-
-  // num1: number, num2: number
-  // testing still ... tbd
-  currentRegionbyRange(offset: number) {
-    // will determine region by min & max #s 
-    // still in progress
-    let current = "Kanto";
-    const r = " Region";
-    // if (151<num1 && num2<252)
-    if (151<offset && offset<252) { current =  "Johto" };
-    return current+r;
   }
 
 }

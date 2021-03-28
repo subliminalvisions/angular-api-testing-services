@@ -3,16 +3,10 @@
       Loading failed
     </span>
     <div style="text-align:center">
-      <h2 class="text-center">Pokemon Pokedex </h2>
+      <h2 class="text-center">Pokedex List</h2>
         <div>
           <h6 class="text-center">(Select Region) </h6>
         </div>
-        <div class="reg">
-          {{ regionIndex }}
-        </div>
-        <!-- <div class="reg"> test Region
-          {{ GenerationOptions | json }}
-        </div> -->
         <div>
           <form #form="ngForm">
             <select class="form-select selectpicker" 
@@ -23,44 +17,31 @@
             aria-label="Default select example">
               <option 
               *ngFor="let region of GenerationOptions; let i = index" 
-              [attr.selected]="i == 0 " 
-              name="region.name"
-              [ngValue]="region">
+              [attr.selected]="i == 0 "  name="region.name" [ngValue]="region">
               {{region.name}}
-                <!-- {{region.offset}} -->
               </option>
             </select>
           </form>
-          
         </div>
 
-        <div>
-          <!-- output region here  -->
-            <!-- {{region.offset}} -->
-        </div>
-        
       <div class="row d-flex justify-content-center ">
         <ul class="pagination ">
           <li class="page-item">
             <a (click)="PrevPage()"  class="pointer paginator hover-gray">
               <i class="fas fa-chevron-left"></i>
-              <!-- <fa-icon [icon]="faHandPointLeft"></fa-icon> -->
             </a>
-            <!-- <a class="page-link" href="#">{{page.index}}</a> -->
           </li>
           <li class="page-item">              
             <a (click)="NextPage()"  class="pointer paginator hover-gray">
               <i class="fas fa-chevron-right"></i></a>
           </li>
-          <!-- <li *ngFor="let page of pages" (click)="updatePage(page)" class="page-item"><a class="page-link" href="#">{{page.index}}</a></li> -->
         </ul>
       </div>
     </div>
-    <!-- <app-pokemon-loading [isLoading]='isLoading'></app-pokemon-loading> -->
     <div *ngIf="!isLoading">
       <div class="container content">
         <div class="row">
-          <div class="col-md-2" *ngFor="let pokemon of pokemonGrid">
+          <div class="col-md-2" *ngFor="let pokemon of pokemonList">
             <div class="card-deck">
               <div class="poke card text-center mt-2 mb-2" style="width: 18rem;">
                 <div class="card-header px-0">
@@ -75,7 +56,6 @@
             </div>
           </div>
         </div>
-  
       </div>
   
     </div>

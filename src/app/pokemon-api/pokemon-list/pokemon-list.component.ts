@@ -31,45 +31,8 @@ export class PokemonListComponent implements OnInit {
   };
   GenSelected: number;
   // pokemonList: Pokemon[] = [];
-
-  // GenList: Array<Generation>;
-  // const user02 = <User>{};
-
   GenerationOptions: {};
-  // let planet = {};
 
-  // GenerationOptions = [
-  //   {     
-  //     number: 1,
-  //     name: 'Kanto',
-  //     offset: 0
-  //   },
-  //   { 
-  //     number: 2,
-  //     name: 'Johto',
-  //     offset: 151
-  //   },
-  //   { 
-  //     number: 3,
-  //     name: 'Hoenn',
-  //     offset: 251
-  //   },
-  //   { 
-  //     number: 4,
-  //     name: 'Sinnoh',
-  //     offset: 386
-  //   },
-  //   { 
-  //     number: 5,
-  //     name: 'Unova',
-  //     offset: 494
-  //   }  
-  // ];
-  ngForm = new FormGroup({
-    // state: new FormControl(this.GenerationOptions[0]),
-  });
-  // type MyArrayType = Array<{id: number, text: string}>;
-  // not so sure bout this
   pageSize: number = 25;
   pageNumber: number;
   CurrentOffset: number;
@@ -80,6 +43,7 @@ export class PokemonListComponent implements OnInit {
   Errorsubscribing: any[] = [];
   Region: string;
   regionIndex: number;
+  ngForm = new FormGroup({});
 
   constructor(
     private regions: PokeregionService,
@@ -88,79 +52,51 @@ export class PokemonListComponent implements OnInit {
     private router: Router,
     // private favoritePokemon: FavoritePokemonService
     ) {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false; 
+    }
+    ngOnInit() {
+      this.CurrentOffset=0;
+      this.getPageOffset();
+    }
+    getPageOffset() {
+      this.GenerationOptions = this.regions.regionData;
+      this.ngForm = new FormGroup({
+        state: new FormControl(this.GenerationOptions[0]),
+      });
+      this.route.params.subscribe(params => {
+        this.listOffset = params['offset'];
+        this.CurrentOffset = params['offset'];
+        // this.ID = this.route.snapshot.params['id'];    
+        // reset and set based on new parameter this time
+        this.regionIndex = this.matchRegion();
+        this.getMyPokeList(this.CurrentOffset);
+      });
     }
 
-  getPageOffset() {
-    this.GenerationOptions = this.regions.regionData;
-    this.route.params.subscribe(params => {
-      this.listOffset = params['offset'];
-      this.CurrentOffset = params['offset'];
-      // this.ID = this.route.snapshot.params['id'];    
-      // reset and set based on new parameter this time
-      this.regionIndex = this.matchRegion();
-      this.getMyPokeList(this.CurrentOffset);
-    });
-  }
+  matchRegion() {
 
-  ngOnInit() {
-    this.CurrentOffset=0;
-    this.getPageOffset();
-    // this.getPokeImage(15);
-  }
+    let num = this.regions.getRegionOffsetbyID(this.CurrentOffset);
+    console.log(num);
+    const indx = this.findIndexWithNumber(
+      this.regions.regionData, 'offset', num
+      );
 
-  // isRegion() {
-  //   return num === this.currentRegion.regionData.maxnum;
-  // }
-  // test
-  // test
+      console.log('indx', indx);
+    return ((indx>0) ? indx : 0); 
+  }
+  // find where region offset value = this.CurrentOffset
   findIndexWithNumber(array, attr, num) {
     console.log('arr', array);
     const x = num;
     let y: number = +x;
-        // value
-    // console.log(value);
-    // console.log(array.length);
-    for(var i = 0; i < array.length; i += 1) {
-      
+    for(var i = 0; i < array.length; i += 1) {      
       if(array[i][attr] === y) {
-          console.log('arraymatch_val', array[i][attr]);
-          // console.log()
             return i;
         }
     }
     return -1;
   }
-  // const isLargeNumber = (element) => element > 13;
-
-
-
-
-
-  matchRegion() {
-    // let nmbr = this.CurrentOffset;
-    // let indx = 0;
-    // this.findWithAttr(this.currentRegion, 'offset', nmbr);
-    // console.log('num1,, ',nmbr);
-    // const result = inventory.find( ({ name }) => name === 'cherries' );
-    const indx = this.findIndexWithNumber(this.regions.regionData, 'offset', this.CurrentOffset);
-    console.log(indx);
-    return ((indx>0) ? indx : 0); 
-    // console.log(indx);
-    // return indx;
-    // this.currentRegion.regionData.maxnum === this.CurrentOffset;
-    // PokeregionService
-  }
   
-
-  // <mat-paginator [hidePageSize]="true" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [length]="totalRows" (page)="pageChanged($event)"></mat-paginator>
-  
-  // pageChanged(e) {
-  //   this.pageNumber = e.pageIndex;
-  //   this.pageSize = e.pageSize;
-  //   console.log(this.pageNumber + '---' + this.pageSize);
-  //   this.getMyPokeList();
-  // }
 
   NextPage() {
     this.CurrentOffset = +this.CurrentOffset +18;
@@ -168,7 +104,12 @@ export class PokemonListComponent implements OnInit {
     this.router.navigateByUrl('/pokelist/'+this.CurrentOffset);
   }
   PrevPage() {
-    this.CurrentOffset = +this.CurrentOffset + -18;
+    if ((Math.sign(this.CurrentOffset))>0) {
+      this.CurrentOffset = +this.CurrentOffset + -18;
+    } else {
+      console.log('CurrentOffset', this.CurrentOffset);
+      this.CurrentOffset = 0;
+    };
     this.getMyPokeList(this.CurrentOffset);
     this.router.navigateByUrl('/pokelist/'+this.CurrentOffset);
   }
@@ -182,40 +123,23 @@ export class PokemonListComponent implements OnInit {
     const dto = {
     };
     this.isLoading = true;
-
-    // const orderBy = (this.sortOrder === 'asc') ? this.sortField : '-' + this.sortField;
     var searchCriteria = {
-      // orderBy: orderBy,
       // limit: this.pageSize,
       // offset: (this.pageNumber * this.pageSize),
-      // limit: 33,
       limit: 18,
       offset: PgOffset,
       page: this.pageNumber 
     };
-
     this.pokemonService.getMyPokeList(searchCriteria).subscribe(
-
       // err => console.log('HTTP Error??', err),
-
       response => {
-
-        // console.log('getMyPokeList --->resp', response);
-
-        // trying to add pagination props to this search  
+        // add pagination props to this search  
         this.pages = [];
         this.isLoading = false;
-
         const totalPages = Math.ceil(response.results.length / 18);
-
         for (let index = 0; index < totalPages; index++) {
           this.pages.push({ index: index + 1 });
         }
-
-        // console.log(response.results.length);
-        // console.log(this.pages);
-
-
         const newDs = response.results.map(obj => {
           
           return {
@@ -225,24 +149,16 @@ export class PokemonListComponent implements OnInit {
             imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${parseInt(obj.url.split('/')[6])}.png`
           }
         });
-
         this.pokemonList = newDs;
-
-        this.updatePage({ index: 1 });
-
-        // console.log('newDs --->', newDs);
-        
-        this.pokemonGrid = newDs;
+        this.updatePage({ index: 1 });        
+        // this.pokemonGrid = newDs;
         this.isLoading = false;
-
       }
-
     );
-
   }
 
   // the paginator function, 
-  // which needs to change to a new api call on the next property  
+  // change a api call for  next property  
   updatePage(page) {
     const pageStart = (page.index - 1) * 15;
     const pageEnd = page.index * 15;
@@ -255,26 +171,16 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
-  getPokeImage(url: string) {
-    console.log('url', url);
-
-    this.pokemonService.getPokeImage(url).subscribe(
-      response => {
-        console.log('getPokeImage', response);
-      }
-    );
-  }
-
-  onChange(event, pokemon) {
-    if (event.target.checked) {
-      // this.favoritePokemon.add(pokemon.id);
-      pokemon.isChecked = true;
-    } else {
-      // this.favoritePokemon.remove(pokemon.id);
-      pokemon.isChecked = false;
-
-    }
-  }
+  // For Fave Poke Function
+  // onChange(event, pokemon) {
+  //   if (event.target.checked) {
+  //     // this.favoritePokemon.add(pokemon.id);
+  //     pokemon.isChecked = true;
+  //   } else {
+  //     // this.favoritePokemon.remove(pokemon.id);
+  //     pokemon.isChecked = false;
+  //   }
+  // }
 
 }
 
