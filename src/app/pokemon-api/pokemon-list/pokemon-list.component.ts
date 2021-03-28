@@ -133,15 +133,21 @@ export class PokemonListComponent implements OnInit {
   }
   // const isLargeNumber = (element) => element > 13;
 
+
+
+
+
   matchRegion() {
     // let nmbr = this.CurrentOffset;
-    let indx = -1;
+    // let indx = 0;
     // this.findWithAttr(this.currentRegion, 'offset', nmbr);
     // console.log('num1,, ',nmbr);
-    console.log(this.CurrentOffset);
-    indx = this.findIndexWithNumber(this.regions.regionData, 'offset', this.CurrentOffset);
+    // const result = inventory.find( ({ name }) => name === 'cherries' );
+    const indx = this.findIndexWithNumber(this.regions.regionData, 'offset', this.CurrentOffset);
     console.log(indx);
-    return indx;
+    return ((indx>0) ? indx : 0); 
+    // console.log(indx);
+    // return indx;
     // this.currentRegion.regionData.maxnum === this.CurrentOffset;
     // PokeregionService
   }
